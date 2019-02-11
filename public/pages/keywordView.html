@@ -1,0 +1,184 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<h1> <b> Keyword View </b> </h1>
+<!-- Search Box and Button -->
+<div id="search"> 
+<!-- Table Action Buttons --> 
+    <span style="float: right; padding: 0px 10px 0px 0px;"> 
+        <button type="button" class="btn btn-primary" id="createButton" data-toggle="modal" data-target="#createMnemonicModal">
+        <b>Create</b>
+        </button> 
+        <button type="button" class="btn btn-primary" id="modifyButton" data-toggle="modal" data-target="#modifyMnemonicModal" ng-model="modifymodalButton" ng-click="loadModifyData()" disabled>
+        <b>Modify</b>
+        </button> 
+        <button type="button" class="btn btn-primary" id="deleteButton" data-toggle="modal" data-target="#deleteMnemonicModal" ng-model="deletemodalButton" ng-click="loadDeleteData()" disabled>
+        <b>Delete</b>
+        </button>
+    </span>
+    <input type="text" id="searchKeywords" placeholder="Filter By Keyword">
+</div>
+<br>
+<p> This is the table of all keywords.<br> To search for one, simply start typing your query in the bar
+    or use the drop-down option. <br> To create a new keyword, click the create button. To modify or delete a keyword, select one using
+    the check-boxes and click the respective button. </p>
+<!-- Keyword Table -->
+<table id="keywordList">
+    <thead>
+        <tr>
+            <th> <input id="checkbox_all" type="checkbox"> </th>
+            <th> Mnemonic </th>
+            <th> Category </th>
+            <th> Navigable in Channel </th>
+            <th> Display Text </th>
+            <th> Mobile Display Text </th>
+            <th> Related Mnemonics </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="mnemonic in mnemonics">
+            <td> <input id="checkbox-{{mnemonic.keywordName}}" type="checkbox" ng-model="checkbox" ng-change="getCheckData(mnemonic.keywordName)"> </td>
+            <td> <a ng-click="" href="#mnemonicInfo/{{mnemonic.keywordName}}">{{mnemonic.keywordName}} </a> </td>
+            <td> {{mnemonic.usage}} </td>
+            <td> {{mnemonic.navigable}} </td>
+            <td> {{mnemonic.display}} </td>
+            <td> {{mnemonic.mobile}} </td>
+            <td> <span ng-repeat="object in mnemonic.relatedMnemonics">{{object}}<br></span> </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Create Keyword Modal -->
+<div class="modal fade" id="createMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="createMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Create a Mnemonic</h2>
+      </div>
+      <div class="modal-body">
+      <form class="form-inline"> <!-- Our Form Fields -->
+            <div class="form-group">
+                Mnemonic Name:
+                <input type="text" class="form-control" id="mnemonicName" placeholder="eg. benefits_center" ng-model="create_keyword_name">
+            </div>
+            <div class="form-group">
+                Category:
+                <input type="text" class="form-control" id="mnemonicCategory" placeholder="eg. benefits overview" ng-model="create_keyword_cate">
+            </div>
+            <div class="form-group">
+                Navigable in Channel:
+                <input type="text" class="form-control" id="mnemonicNavigable" placeholder="eg. My benefits" ng-model="create_keyword_navi">
+            </div>
+            <div class="form-group">
+                Capability:
+                <input type="text" class="form-control" id="mnemonicCapability" placeholder="eg. shows benefits" ng-model="create_keyword_cap">  
+            </div>
+            <div class="form-group">
+                    Mobile Text:
+                    <input type="text" class="form-control" id="mnemonicMobile" placeholder="eg. in app" ng-model="create_keyword_mobile">
+            </div>
+            <div class="form-group">
+                Display Text:
+                <input type="text" class="form-control" id="mnemonicDisplay" placeholder="eg. nav" ng-model="create_keyword_display">
+            </div>
+            <div class="form-group">
+                URL:
+                <input type="text" class="form-control" id="mnemonicURL" placeholder="eg. benefits_center.pdf" ng-model="create_keyword_url">
+            </div>
+            <div class="form-group">
+                Navigation Location:
+                <input type="text" class="form-control" id="mnemonicNavigation" placeholder="eg. My benefits" ng-model="create_keyword_loc">
+            </div>
+            <div class="form-group">
+                Related Mnemonics:
+                <input type="text" class="form-control" id="mnemonicRelated" placeholder="eg. benefits_left, benefits_right" ng-model="create_keyword_rel">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="createModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Modify Keywords Modal -->
+<div class="modal fade" id="modifyMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="modifyMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Modify Keywords</h2>
+      </div>
+      <div class="modal-body">
+          <p> Please make sure to check the appropriate boxes of the changes you want to submit. 
+              If you do not check the boxes next to the categories and still submit changes, they <b> will not save! </b>
+          </p>
+      <form class="form-inline">
+            <div class="form-group">
+                <input id="modifyMnemonicNameCheck" type="checkbox">   Mnemonic Name:
+                <input type="text" class="form-control" id="mnemonicNameField" placeholder="" ng-model="modify_keyword_name">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicCateCheck" type="checkbox">   Category:
+                <input type="text" class="form-control" id="mnemonicCategoryField" placeholder="" ng-model="modify_keyword_cate">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicNaviCheck" type="checkbox">  Navigable in Channel:
+                <input type="text" class="form-control" id="mnemonicNavigableField" placeholder="" ng-model="modify_keyword_navi">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicCapCheck" type="checkbox">  Capability:
+                <input type="text" class="form-control" id="mnemonicCapabilityField" placeholder="" ng-model="modify_keyword_cap">  
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicMobileCheck" type="checkbox">    Mobile Text:
+                <input type="text" class="form-control" id="mnemonicMobileField" placeholder="" ng-model="modify_keyword_mobile">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicDisplayCheck" type="checkbox">  Display Text:
+                <input type="text" class="form-control" id="mnemonicDisplayField" placeholder="" ng-model="modify_keyword_dis">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicURLCheck" type="checkbox"> URL:
+                <input type="text" class="form-control" id="mnemonicURLField" placeholder="" ng-model="modify_keyword_url">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicLocCheck" type="checkbox"> Navigation Location:
+                <input type="text" class="form-control" id="mnemonicNavigationField" placeholder="" ng-model="modify_keyword_loc">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicRelCheck" type="checkbox"> Related Mnemonics:
+                <input type="text" class="form-control" id="mnemonicRelatedField" placeholder="" ng-model="modify_keyword_rel">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-model="modifyModal" ng-click="modifyModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Delete Mnemonic Modal -->
+<div class="modal fade" id="deleteMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="deleteMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Delete Mnemonic</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete these mnemonics?
+        <br> <br>
+        Selected Mnemonics: 
+        <ul>
+            <li ng-repeat='mnemonic in mnemonicEditList'> {{mnemonic.name}} </li>
+        </ul>
+        <br> <br>
+        This operation cannot be undone!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="deleteModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 

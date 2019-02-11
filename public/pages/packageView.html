@@ -1,0 +1,164 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<h1> <b> Package Controller </b> </h1>
+<!-- Search Box and Button -->
+<div id="search">
+    <!-- Table Action Buttons --> 
+    <span style="float: right; padding: 0px 10px 0px 0px;"> 
+    <button type="button" class="btn btn-primary" id="createButton" data-toggle="modal" data-target="#createPackageModal">
+    <b>Create</b>
+    </button> 
+    <button type="button" class="btn btn-primary" id="modifyButton" data-toggle="modal" data-target="#modifyPackageModal" ng-model="modifymodalButton" ng-click="loadModifyData()" disabled>
+    <b>Modify</b>
+    </button> 
+    <button type="button" class="btn btn-primary" id="deleteButton" data-toggle="modal" data-target="#deletePackageModal" ng-model="deleteModal" ng-click="test()" disabled>
+    <b>Delete</b>
+    </button>
+    </span>
+    <input type="text" id="searchPackages" placeholder="Filter By Package">
+</div>
+<br>
+<p> This is the table of all configuration packages.<br> To search for one, simply start typing your query in the bar
+    or use the drop-down option. <br> To create a new package, click the create button. To modify or delete a package, select one using
+    the check-boxes and click the respective button. </p>
+<!-- Package List Table -->
+<table id="packageList">
+    <thead>
+        <tr>
+            <th> <input id="checkbox_all" type="checkbox"> </th>
+            <th> Name </th>
+            <th> ID </th>
+            <th> Description </th>
+            <th> Last Updated </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="package in packages">
+            <td> <input id="checkbox-{{package.id}}" type="checkbox" ng-model="checkbox" ng-change="getCheckData(package.id)"> </td>
+            <td> <a ng-click="" href="#packageInfo/{{package.id}}">{{package.name}}</a> </td>
+            <td> {{package.id}} </td>
+            <td> {{package.description}} </td>
+            <td> {{package.versionEffectiveDate}} </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Create Package Modal -->
+<div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageViewLabel">Create Package</h2>
+        <br>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline" id="create_submit_form" ng-submit="createModal()">
+            <div class="form-group">
+                Name:
+                <input type="text" class="form-control" id="packageName" placeholder="Drexel University" ng-model="create_package_name">
+            </div>
+            <div class="form-group">
+                Package ID:
+                <input type="number" class="form-control" id="packageID" placeholder="eg. 198" ng-model="create_package_id">
+            </div>
+            <div class="form-group">
+                Description:
+                <input type="text" class="form-control" id="packageDescription" placeholder="eg. Mnemonics for University holders" ng-model="create_package_desc">
+            </div>
+            <div class="form-group">
+                Source Package: <br>
+                <select id="createPackageBase" class="combobox form-control" style="display: none;">
+                    <option value selected="selected"> Choose a Package </option>
+                    <option ng-repeat="option in packages" value="{{option.id}}">{{option.name}} &nbsp;- {{option.id}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Category: <br>
+                <select id="createPackageCate" class="combobox form-control" style="display: none;">
+                    <option value selected="selected"> Choose a Category </option>
+                    <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>
+                </select>
+            </div>
+        </form>
+      </div>       
+      <div class="modal-footer">
+        <button type="submit" form="create_submit_form" class="btn btn-primary"><b>Create</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Modify Package Modal -->
+<div class="modal fade" id="modifyPackageModal" tabindex="-1" role="dialog" aria-labelledby="modifyPackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageViewLabel">Modify Package</h2>
+        <br>
+      </div>
+      <div class="modal-body">
+        <p> Please make sure to check the appropriate boxes of the changes you want to submit. 
+            If you do not check the boxes next to the categories and still submit changes, they <b> will not save! </b>
+        </p>
+        <form class="form-inline" id="modify_submit_form">
+            <div class="form-group">
+                <input id="modifyPackageNameCheck" type="checkbox">     Name:
+                <input type="text" class="form-control" id="packageNamefield" ng-model="modify_package_name">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageIDCheck" type="checkbox">     Package ID:
+                <input type="number" class="form-control" id="packageIDfield"  ng-model="modify_package_id">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageDescCheck" type="checkbox">    Description:
+                <input type="text" class="form-control" id="packageDescriptionfield" ng-model="modify_package_desc">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageBaseCheck" type="checkbox">    Source Package: <br>
+                <select id="selectPackageBase" class="form-control"> 
+                    <option id="nullOption" value=""> None </option>   
+                    <option id="mixOption" value="mixed"> Mixed </option>  
+                    <option ng-repeat="option in packages" value="{{option.id}}">{{option.name}} &nbsp;-&nbsp; {{option.id}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageCateCheck" type="checkbox">    Category: <br>
+                <select id="selectPackageCate" class="form-control">
+                    <option id="nullOption" value=""> None </option>   
+                    <option id="mixOption" value="mixed"> Mixed </option>  
+                    <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>
+                </select>
+            </div>
+        </form>
+      </div>         
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-primary" ng-click="modifyModal()"><b>Save</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Delete Package Modal -->
+<div class="modal fade" id="deletePackageModal" tabindex="-1" role="dialog" aria-labelledby="deletePackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Delete Package</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete these packages?
+        <br> <br>
+        Selected Packages: 
+        <ul>
+            <li ng-repeat="object in packageEditList track by $index"> {{object.name}} </li>
+        </ul>
+        <br> <br>
+        This operation cannot be undone!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 

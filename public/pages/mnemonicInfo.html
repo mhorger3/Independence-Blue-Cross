@@ -1,0 +1,439 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<!-- Mnemonic Name from JSON will go here using $scope -->
+<div id="infoHeader">
+    <h1><b> {{name}} </b>
+        <!-- Mnemonic Action Buttons -->
+        <span style="float: right; padding: 0px 10px 0px 0px;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackagesModal"> 
+        <b>View Enabled Packages</b> 
+    </button>   
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modifyMnemonicModal" ng-model="modifyButton" ng-click="loadModifyData()">
+        <b>Modify Keywords</b>
+    </button> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteMnemonicModal">
+        <b>Delete</b>
+    </button>
+    </span>
+    </h1>
+</div>
+<hr>
+<!-- Visibility Settings -->
+<div id="infoHeader">
+    <h3> Visibility <span style="float: right; padding: 0px 10px 0px 0px;"> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editVisibilityModal">
+        <b>Edit</b>
+    </button> 
+    </h3>  
+</div>
+<!-- Package Selection Box -->
+<div id="packageSelect">
+<select class="form-control" ng-model="loadSettings" ng-change="loadVisibility()">
+    <option ng-repeat="option in packages" value="{{option.id}}"> {{option.name}} &nbsp; - &nbsp; {{option.id}}</option>
+</select>
+</div>
+<p> If not globally enabled or disabled, content must have at least one value that is enabled in Group A 
+    and at least one value that is enabled in Group B and at least one value that is enabled in Group C. <br>
+    Content must ALWAYS have one value that is enabled in Platform and one value that is enabled in Region! <br>
+</p> 
+<!-- Visibility Section -->
+<div id="visibility">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href data-target="#A" data-toggle="tab">A / B / C</a></li>
+        <li class=""><a href data-target="#platform" data-toggle="tab">Platform</a></li>
+        <li class=""><a href data-target="#region" data-toggle="tab">Region / Global Override</a></li>
+    </ul>      
+    <div id="myTabContent" class="tab-content" style=" height: 520px; overflow: auto;">
+        <div class="tab-pane fade active in" id="A">
+            <h3> A </h3>
+            <h4>Funding</h4>
+            <ul id="funding_settings">
+                <li id="fullyInsured"> {{settings("fullyInsured")}} </li>
+                <li id="selfInsured"> {{settings("selfInsured")}} </li>
+            </ul>
+            <h4> Product Line </h4>
+            <ul id="product_settings">
+                <li id="medical"> {{settings("medical")}} </li>
+                <li id="dental"> {{settings("dental")}} </li>
+                <li id="vision"> {{settings("vision")}} </li>
+                <li id="rx"> {{settings("rx")}} </li>
+                <li id="rxClaims"> {{settings("rxClaims")}} </li>
+                <li id="rxClaimsInd"> {{settings("rxClaimsInd")}} </li>
+                <li id="rxClaimsSm"> {{settings("rxClaimsSm")}} </li>
+                <li id="rxClaimsLg"> {{settings("rxClaimsLg")}} </li>
+            </ul>
+            <h4> LOBs </h4>
+            <ul id="LOBS_settings">
+                <li id="hmo"> {{settings("hmo")}} </li>
+                <li id="pos"> {{settings("pos")}} </li>
+                <li id="ppo"> {{settings("ppo")}} </li>
+                <li id="pho"> {{settings("pho")}} </li>
+                <li id="posPlus"> {{settings("posPlus")}} </li>
+                <li id="posPlusSEH"> {{settings("posPlusSEH")}} </li>
+                <li id="ucciDental"> {{settings("ucciDential")}} </li>
+                <li id="blueDental"> {{settings("blueDental")}} </li>
+            </ul>
+            <h4> Spending Accounts </h4>
+            <ul id="spending_settings">
+                <li id="hsa"> {{settings("hsa")}} </li>
+                <li id="enrollHSA"> {{settings("enrollHSA")}} </li>
+                <li id="fsa"> {{settings("fsa")}} </li>
+                <li id="hra"> {{settings("hra")}} </li>
+                <li id="dca"> {{settings("dca")}} </li>
+            </ul>
+            <h4> Misc </h4>
+            <ul id="misc_settings">
+                <li id="multiplan"> {{settings("multiplan")}} </li>
+                <li id="idTheft"> {{settings("idTheft")}} </li>
+                <li id="cce"> {{settings("cce")}} </li>
+                <li id="hcr"> {{settings("hcr")}} </li>
+                <li id="telemedicine"> {{settings("telemedicine")}} </li>
+                <li id="reward"> {{settings("reward")}} </li>
+                <li id="challenge"> {{settings("challenge")}} </li>
+                <li id="wellnessCore"> {{settings("wellnessCore")}} </li>
+                <li id="individual"> {{settings("individual")}} </li>
+                <li id="smallGroup"> {{settings("smallGroup")}} </li>
+                <li id="largeGroup"> {{settings("largeGroup")}} </li>
+                <li id="directPay"> {{settings("directPay")}} </li>
+            </ul>
+            <h3> B </h3>
+            <h4> Govt Programs </h4>
+            <ul id="programs_settings">
+                <li id="blueExtraBasic"> {{settings("blueExtraBasic")}} </li>
+                <li id="blueExtraPlus"> {{settings("blueExtraPlus")}} </li>
+                <li id="medicare"> {{settings("medicare")}} </li>
+                <li id="mediGap"> {{settings("medigap")}} </li>
+            </ul>
+            <h4> Comm. </h4>
+            <ul id="comm_settings">
+                <li id="subscriber"> {{settings("subscriber")}} </li>
+                <li id="spouse"> {{settings("spouse")}} </li>
+                <li id="spouse_dep"> {{settings("spouseDep")}} </li>
+                <li id="dept"> {{settings("dept")}} </li>
+            </ul>
+            <h3> C </h3>
+            <h4> Coverage Settings </h4> 
+            <ul id="coverageSettings">
+                <li id="preEffectuated"> {{settings("preEffectuated")}} </li>
+                <li id="future"> {{settings("future")}} </li>
+                <li id="active"> {{settings("active")}} </li>
+                <li id="termed"> {{settings("termed")}} </li>
+                <li id="demo"> {{settings("demo")}} </li>
+            </ul>  
+        </div>
+        <div class="tab-pane fade" id="platform">
+            <h4> Desktop Web </h4>
+            <ul id="desktop_settings">
+                <li id="windowsDesktop"> {{settings("windowsDesktop")}} </li>
+                <li id="macDesktop"> {{settings("macDesktop")}} </li>
+                <li id="androidDesktop"> {{settings("androidDesktop")}} </li>
+                <li id="ipadDesktop"> {{settings("ipadDesktop")}} </li>
+            </ul>
+            <h4> Tablets </h4>
+            <ul id="tablets_settings">
+                <li id="androidTablet"> {{settings("androidTablet")}} </li>
+                <li id="ipadTablet"> {{settings("ipadTablet")}} </li>
+                <li id="windowsTablet"> {{settings("windowsTablet")}} </li>
+            </ul>
+            <h4> Phones </h4>
+             <ul id="phone_settings">
+                <li id="androidPhone"> {{settings("androidPhone")}} </li>
+                <li id="iosPhone"> {{settings("iosPhone")}} </li>
+            </ul>
+            <h4> Mobile Web SPA </h4>
+            <ul id="mobile_settings">
+                <li id="androidMobile"> {{settings("androidMobile")}} </li>
+                <li id="iosMobile"> {{settings("iosMobile")}} </li>
+                <li id="windowsMobile"> {{settings("windowsMobile")}} </li>
+            </ul>
+        </div>                       
+         <div class="tab-pane fade" id="region">
+             <h4> Region </h4>
+                    <ul id="region_settings">
+                        <li id="DEV"> {{settings("DEV")}} </li>
+                        <li id="QA"> {{settings("QA")}} </li>
+                        <li id="PROD"> {{settings("PROD")}}</li>
+                    </ul>
+             <h4> Global Override </h4>
+                    <ul id="global_settings">
+                        <li id="global"> Global: {{global()}} </li>
+                    </ul>
+            </div>
+    </div>
+</div>
+<hr>
+<!-- Edit Visibility Settings Modal -->
+<div class="modal fade" id="editVisibilityModal" tabindex="-1" role="dialog" aria-labelledby="editVisibilityLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Edit Visibility</h2>
+      </div>
+      <div class="modal-body">
+        <div id="visibility">
+            To change visibility settings for a given package, select a package using the combobox. To make changes, simply use the switches to change the setting for each category.
+            <br>Make sure you hit the confirm button to save any changes!<br><br>
+            <div id="packageSelect">
+                <select class="form-control" ng-model="loadSettingsModal" ng-change="loadModalSettings()">
+                    <option ng-repeat="option in packages" value="{{option.id}}"> {{option.name}} &nbsp; - &nbsp; {{option.id}}</option>
+                </select>
+                <br> <br>
+            </div>
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href data-target="#AModal" data-toggle="tab">A / B / C</a></li>
+                <li class=""><a href data-target="#platformModal" data-toggle="tab">Platform</a></li>
+                <li class=""><a href data-target="#regionModal" data-toggle="tab">Region / Global Override</a></li>
+            </ul>      
+        <div id="myTabContent" class="tab-content" style=" height: 500px; overflow: auto;">
+        <div class="tab-pane fade active in" id="AModal">
+          <h3> A </h3>
+          <h4>Funding</h4> 
+          <ul id="funding_settings">
+            <li id="fullyInsuredModal"> <input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="fullyInsuredBox"/><label for="fullyInsuredBox"></label> Fully Insured</li>
+            <li id="selfInsuredModal"> <input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="selfInsuredBox"/><label for="selfInsuredBox"></label> Self Insured </li>
+        </ul>
+         <h4> Product Line </h4>
+           <ul id="product_settings">
+                <li id="medicalModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="medicalBox"/><label for="medicalBox"></label> Medical </li>
+                <li id="dentalModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="dentalBox"/><label for="dentalBox"></label> Dental </li>
+                <li id="visionModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="visionBox"/><label for="visionBox"></label> Vision </li>
+                <li id="rxModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rxBox"/><label for="rxBox"></label> RX </li>
+                <li id="rxClaimsModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rxClaimsBox"/><label for="rxClaimsBox"></label> Rx Claims </li>
+                <li id="rxClaimsIndModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rxClaimsIndBox"/><label for="rxClaimsIndBox"></label>  Rx Claims Ind </li>
+                <li id="rxClaimsSmModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rxClaimsSmBox"/><label for="rxClaimsSmBox"></label> Rx Claims Sm Grp </li>
+                <li id="rxClaimsLgModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rxClaimsLgBox"/><label for="rxClaimsLgBox"></label> Rx Claims Lg Grp</li>
+            </ul> 
+            <h4> LOBs </h4>
+                <ul id="LOBS_settings">
+                    <li id="hmoModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="hmoBox"/><label for="hmoBox"></label> HMO </li>
+                    <li id="posModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="posBox"/><label for="posBox"></label> POS </li>
+                    <li id="ppoModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="ppoBox"/><label for="ppoBox"></label> PPO </li>
+                    <li id="phoModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="phoBox"/><label for="phoBox"></label> PHO </li>
+                    <li id="posPlusModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="posPlusBox"/><label for="posPlusBox"></label> POS+ </li>
+                    <li id="posPlusSEHModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="posPlusSEHBox"/><label for="posPlusSEHBox"></label> POS+ SEH </li>
+                    <li id="ucciDentalModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="ucciDentalBox"/><label for="ucciDentalBox"></label> UCCI Dental </li>
+                    <li id="blueDentalModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="blueDentalBox"/><label for="blueDentalBox"></label> Blue Dental </li>
+                </ul>
+            <h4> Spending Accounts </h4>
+                    <ul id="spending_settings">
+                        <li id="hsaModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="hsaBox"/><label for="hsaBox"></label> HSA </li>
+                        <li id="enrollHSAModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="enrollHSABox"/><label for="enrollHSABox"></label> Enroll HSA </li>
+                        <li id="fsaModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="fsaBox"/><label for="fsaBox"></label> FSA (HCRA) </li>
+                        <li id="hraModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="hraBox"/><label for="hraBox"></label> HRA </li>
+                        <li id="dcaModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="dcaBox"/><label for="dcaBox"></label> DCA </li>
+                    </ul>
+            <h4> Misc </h4>
+                    <ul id="misc_settings">
+                        <li id="multiplanModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="multiplanBox"/><label for="multiplanBox"></label> Multiplan </li>
+                        <li id="idTheftModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="idTheftBox"/><label for="idTheftBox"></label> ID Theft </li>
+                        <li id="cceModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="cceBox"/><label for="cceBox"></label> CCE </li>
+                        <li id="hcrModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="hcrBox"/><label for="hcrBox"></label> HCR </li>
+                        <li id="telemedicineModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="telemedicineBox"/><label for="telemedicineBox"></label> Telemedicine </li>
+                        <li id="rewardModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="rewardBox"/><label for="rewardBox"></label> Reward </li>
+                        <li id="challengeModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="challengeBox"/><label for="challengeBox"></label> Challenge </li>
+                        <li id="wellnessCoreModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="wellnessCoreBox"/><label for="wellnessCoreBox"></label> Wellness Core </li>
+                        <li id="individualModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="individualBox"/><label for="individualBox"></label> Individual </li>
+                        <li id="smallGroupModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="smallGroupBox"/><label for="smallGroupBox"></label> Small Group </li>
+                        <li id="largeGroupModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="largeGroupBox"/><label for="largeGroupBox"></label> Large Group </li>
+                        <li id="directPayModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="directPayBox"/><label for="directPayBox"></label> DirectPay </li>
+                    </ul>
+            <h3> B </h3>
+             <h4> Govt Programs </h4>
+            
+                <ul id="programs_settings">
+                    <li id="blueExtraBasicModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="blueExtraBasicBox"/><label for="blueExtraBasicBox"></label> BlueExtra Basic </li>
+                    <li id="blueExtraPlusModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="blueExtraPlusBox"/><label for="blueExtraPlusBox"></label> BlueExtra + </li>
+                    <li id="medicareModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="medicareBox"/><label for="medicareBox"></label> Medicare </li>
+                    <li id="mediGapModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="mediGapBox"/><label for="mediGapBox"></label> MediGap </li>
+                </ul>
+            <h4> Comm. </h4> 
+            <ul id="comm_settings">
+                    <li id="subscriberModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="subscriberBox"/><label for="subscriberBox"></label> Subscriber </li>
+                    <li id="spouseModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="spouseBox"/><label for="spouseBox"></label> Spouse </li>
+                    <li id="spouse_depModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="spouse_depBox"/><label for="spouse_depBox"></label> Spouse / Dep 18 </li>
+                    <li id="deptModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="deptBox"/><label for="deptBox"></label> Dept 14-17 </li>
+                </ul>
+            <h3> C </h3>
+            <h4> Coverage Settings </h4> 
+             <ul id="coverageSettings">
+                <li id="preEffectuatedModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="preEffectuatedBox"/><label for="preEffectuatedBox"></label> Pre-Effectuated </li>
+                <li id="futureModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="futureBox"/><label for="futureBox"></label> Future </li>
+                <li id="activeModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="activeBox"/><label for="activeBox"></label> Active </li>
+                <li id="termedModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="termedBox"/><label for="termedBox"></label> Termed </li>
+                <li id="demoModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="demoBox"/><label for="demoBox"></label> Demo </li>
+            </ul>
+            </div>
+             <div class="tab-pane fade" id="platformModal">
+                 <h4> Desktop Web </h4>
+                  <ul id="desktop_settings">
+                    <li id="windowsDesktopModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="windowsDesktopBox"/><label for="windowsDesktopBox"></label> Windows </li>
+                    <li id="macDesktopModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="macDesktopBox"/><label for="macDesktopBox"></label> Mac </li>
+                    <li id="androidDesktopModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="androidDesktopBox"/><label for="androidDesktopBox"></label> Android Tablet </li>
+                    <li id="ipadDesktopModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="ipadDesktopBox"/><label for="ipadDesktopBox"></label> iPad </li>
+                </ul>
+                 <h4> Tablets </h4>
+                  <ul id="tablets_settings">
+                    <li id="androidTabletModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="androidTabletBox"/><label for="androidTabletBox"></label> Android </li>
+                    <li id="ipadTabletModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="ipadTabletBox"/><label for="ipadTabletBox"></label> iOS(iPad) </li>
+                    <li id="windowsTabletModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="windowsTabletBox"/><label for="windowsTabletBox"></label> Windows </li>
+                </ul>
+                 <h4> Phones </h4>
+                    <ul id="phone_settings">
+                       <li id="androidPhoneModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="androidPhoneBox"/><label for="androidPhoneBox"></label> Android </li>
+                       <li id="iosPhoneModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="iosPhoneBox"/><label for="iosPhoneBox"></label> iOS (iPhone) </li>
+                   </ul>
+                 <h4> Mobile Web SPA </h4>
+                    <ul id="mobile_settings">
+                        <li id="androidMobileModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="androidMobileBox"/><label for="androidMobileBox"></label> Android Phone </li>
+                        <li id="iosMobileModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="iosMobileBox"/><label for="iosMobileBox"></label> iOS Phone </li>
+                        <li id="windowsMobileModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="windowsMobileBox"/><label for="windowsMobileBox"></label> Windows Phone </li>
+                    </ul>
+        
+            </div>
+             <div class="tab-pane fade" id="regionModal">
+                 <h4> Region </h4> 
+                 <ul id="region_settings">
+                    <li id="DEVModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="DEVBox"/><label for="DEVBox"></label> DEV </li>
+                    <li id="QAModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="QABox"/><label for="QABox"></label> QA </li>
+                    <li id="PRODModal"><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="PRODBox"/><label for="PRODBox"></label> PROD </li>
+                </ul>
+                 <h4> Global Override </h4>
+                 <form>
+                    <input type="radio" class="radioGroup" name="override" value="enabled"> Enabled
+                    <input type="radio" class="radioGroup" name="override" value="conditional"> Conditional
+                    <input type="radio" class="radioGroup" name="override" value="disabled"> Disabled
+                 </form>
+            </div> 
+            </div>
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-model="modalSettings" ng-click="checkSubmitRegex()"> <b>Confirm </b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Edit Associative Packages Modal -->
+<div class="modal fade" id="editPackagesModal" tabindex="-1" role="dialog" aria-labelledby="editPackagesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Add / Remove Enabled Packages</h2>
+        <br>
+      </div>
+      <div class="modal-body">
+          To add this mnemonic to a given package, simply click on the checkbox next to the package you want to assign the mnemonic to and click add.
+          To remove this mnemonic from a given package, simply click on the checkbox of an active package and click on remove.
+          To search for a given package, type an identifier into the search bar and press the search button.
+          <br><br> <br>
+          <input type="text" id="modalsearchBox" placeholder="Search" ng-model="searchBox">
+          <button type="button" class="btn btn-primary" ng-click="searchPackages()">
+            Search
+          </button>
+          <br><br>         
+        <table id="associativePackages">
+            <thead>
+                <tr>
+                    <th> Enabled State </th>
+                    <th class="name"> Name </th>
+                    <th class="id"> ID  </th>
+                    <th class="update"> Last Updated </th>
+                </tr> 
+            </thead>
+        <tbody>
+            <tr ng-repeat="package in packages track by $index">
+                <td> <input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="{{package.id}}"/><label for="{{package.id}}"></label></td>
+                <td> <a ng-click="" href="#packageInfo/{{package.id}}">{{package.name}} </td>
+                <td> {{package.id}} </td>
+                <td> {{package.versionEffectiveDate}} </td>
+            </tr>
+        </tbody>
+</table>
+</div>  
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="addPackage()"> <b>Confirm </b></button>
+        </div>
+     </div>
+    </div>
+  </div>
+<!-- Modify Mnemonic Modal -->
+<div class="modal fade" id="modifyMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="modifyMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Edit Keywords</h2>
+      </div>
+      <div class="modal-body">
+           <p>Please make sure to check the appropriate boxes of the changes you want to submit. 
+              If you do not check the boxes next to the categories and still submit changes, they <b> will not save! </b>
+          </p>
+      <form class="form-inline">
+            <div class="form-group">
+                <input id="modifyMnemonicNameCheck" type="checkbox">   Mnemonic Name:
+                <input type="text" class="form-control" id="mnemonicNameField" placeholder="" ng-model="modify_keyword_name">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicCateCheck" type="checkbox">   Category:
+                <input type="text" class="form-control" id="mnemonicCategoryField" placeholder="" ng-model="modify_keyword_cate">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicNaviCheck" type="checkbox">  Navigable in Channel:
+                <input type="text" class="form-control" id="mnemonicNavigableField" placeholder="" ng-model="modify_keyword_navi">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicCapCheck" type="checkbox">  Capability:
+                <input type="text" class="form-control" id="mnemonicCapabilityField" placeholder="" ng-model="modify_keyword_cap">
+
+            </div>
+            <div class="form-group">
+                 <input id="modifyMnemonicMobileCheck" type="checkbox">    Mobile Text:
+                 <input type="text" class="form-control" id="mnemonicMobileField" placeholder="" ng-model="modify_keyword_mobile">
+
+            </div>
+            <div class="form-group">
+                 <input id="modifyMnemonicDisplayCheck" type="checkbox">  Display Text:
+                 <input type="text" class="form-control" id="mnemonicDisplayField" placeholder="" ng-model="modify_keyword_dis">
+                </div>
+            <div class="form-group">
+                 <input id="modifyMnemonicURLCheck" type="checkbox"> URL:
+                 <input type="text" class="form-control" id="mnemonicURLField" placeholder="" ng-model="modify_keyword_url">
+                </div>
+            <div class="form-group">
+                <input id="modifyMnemonicLocCheck" type="checkbox"> Navigation Location:
+                <input type="text" class="form-control" id="mnemonicNavigationField" placeholder="" ng-model="modify_keyword_loc">
+            </div>
+            <div class="form-group">
+                <input id="modifyMnemonicRelCheck" type="checkbox"> Related Mnemonics:
+                <input type="text" class="form-control" id="mnemonicRelatedField" placeholder="" ng-model="modify_keyword_rel">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-model="modifyModal" ng-click="modifyModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Delete Mnemonic Modal -->
+<div class="modal fade" id="deleteMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="deleteMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Delete Mnemonic</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this mnemonic?
+        ({{name}})
+        <br> <br>
+        This operation cannot be undone!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-model="deleteModal" ng-click="deleteModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<!-- Package Name and ID from JSON will go here using $scope -->
+<div id="infoHeader">
+    <h1><b> Package ID: {{currentPackage.id}} </b> 
+    <!-- Package Action buttons -->
+    <span style="float: right; padding: 0px 10px 0px 0px;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modifyPackageModal" ng-click="loadModifyData()">
+    <b>Modify</b>
+    </button> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletePackageModal">
+    <b>Delete</b>
+    </button>
+    </span>
+    </h1>
+    <h3> <b> Package Name: {{currentPackage.name}} </b> </h3>
+</div>
+<h4> <b> Parent For: </b> <span ng-repeat="object in currentPackage.inheritedBy"> <b> {{object}} </b> </span> </h4>
+<hr><h3> Enabled Mnemonics </h3>
+<!-- Search and Table Action Buttons-->
+<div id="search">
+    <span style="float: right; padding: 0px 10px 0px 0px;"> 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMnemonicsModal">
+    <b>Edit</b>
+    </button> 
+    </span>
+    <input type="text" id="searchMnemonics" placeholder="Filter By Mnemonic">
+</div>
+<br>
+<!-- Enabled Mnemonics Table -->
+<table id="enabledMnemonics">
+    <thead>
+        <tr>
+            <th> Mnemonic </th>
+            <th> Display </th>
+            <th> Source Package </th>
+            <th> Regex </th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr ng-repeat="mnemonic in mnemonics">
+        <td> <a ng-click="" href="#mnemonicInfo/{{mnemonic.mnemonicKeywordName}}">{{mnemonic.mnemonicKeywordName}}</a> </td>
+        <td> {{mnemonic.displayText}} </td>
+        <td> {{mnemonic.configPackageId}} </td>
+        <td> {{mnemonic.unoptimizedEnabledRegexText}} </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Modify Package Modal -->
+<div class="modal fade" id="modifyPackageModal" tabindex="-1" role="dialog" aria-labelledby="modifyPackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Modify Package</h2>
+        <br>
+      </div>
+      <div class="modal-body">
+            <p> Please make sure to check the appropriate boxes of the changes you want to submit. 
+              If you do not check the boxes next to the categories and still submit changes, they <b> will not save! </b>
+            </p>
+        <form class="form-inline">
+            <div class="form-group">
+                <input id="modifyPackageNameCheck" type="checkbox"> Package ID:
+                <input type="number" class="form-control" id="packageIDfield" placeholder="">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageIDCheck" type="checkbox">  Name:
+                <input type="text" class="form-control" id="packageNamefield" placeholder="">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageDescCheck" type="checkbox">    Description:
+                <input type="text" class="form-control" id="packageDescriptionfield" placeholder="">
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageBaseCheck" type="checkbox">  Base Package:
+                <select id="selectPackageBase" class="form-control">
+                    <option value selected="selected"> Choose a Package </option>
+                    <option ng-repeat="option in packages" value="{{option.id}}">{{option.name}} &nbsp;- {{option.id}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="modifyPackageCateCheck" type="checkbox">    Category:
+                <select id="selectPackageCate" class="form-control">
+                    <option value selected="selected"> Choose a Category </option>
+                    <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>
+            </select>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="modifyModal()"><b>Save</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Delete Package Modal -->
+<div class="modal fade" id="deletePackageModal" tabindex="-1" role="dialog" aria-labelledby="deletePackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Delete Package</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this packages? ({{name}})
+        <br> <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="deleteModal()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Edit Enabled Mnemonics Modal -->
+<div class="modal fade" id="editMnemonicsModal" tabindex="-1" role="dialog" aria-labelledby="editMnemonicsLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Add / Remove Enabled Mnemonics</h2>
+        <br>
+      </div>
+      <div class="modal-body">
+           To add mnemonics to this package, simply click on the checkbox next to the mnemonic you want to include in the package.
+          To search for a given mnemonic, type an identifier into the search bar and press the search button.
+          <br><br> <br>
+          <input type="text" id="modalsearchBox" placeholder="Search" ng-model="searchBox">
+          <br><br>
+        <div id="enabled_mnemonics">
+          <table id="enabled_mnemonics_modal">
+                <thead>
+                <tr>
+                    <th> Enabled State </th>
+                    <th> Mnemonic Name </th>
+                    <th> Mnemonic Packages Count </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="mnemonic in Allmnemonics track by $index">
+                    <td><input type="checkbox" style="height: 0; width: 0; visibility: hidden;" id="{{mnemonic.keywordName}}box"/><label for="{{mnemonic.keywordName}}box"></label></td>
+                    <td> {{ mnemonic.keywordName }} </td>
+                    <td> {{ mnemonic.packages }} </td>
+                </tr>
+                </tbody>
+         </table>
+      </div>
+      </div>         
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addMnemonic()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 

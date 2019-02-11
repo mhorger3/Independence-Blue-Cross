@@ -1,0 +1,31 @@
+<h1> <b> Publish History </b> </h1>
+<!-- Search Box with button -->
+<div id="search">
+    <input type="text" id="publishsearchBox" placeholder="Search" ng-model="searchBox">
+    <button type="button" id="publishsearchButton" class="btn btn-primary" ng-click="searchPublishes()">
+    <b>Search</b>
+    </button>
+</div>
+<br>
+<!-- Publish Datatable -->
+<table id="publishList">
+     <thead>
+         <tr>
+            <th> Expand </th>
+            <th> Destination </th>
+            <th> Changes </th>
+            <th> User </th>
+            <th> Time </th>
+         </tr>
+     </thead>
+     <tbody>
+         <!-- the data-child-value must be an angular js variable that calls that respective data -->
+         <tr data-child-value="{{test()}}" ng-repeat="publish in publishList"> <!-- get all the publishes from the publishList -->
+             <td class="details-control"></td>
+             <td> {{publish.dest}} </td>
+             <td> {{publish.desc}} </td>
+             <td> {{publish.user}} </td>
+             <td> {{publish.time}} </td>
+         </tr>
+     </tbody>
+</table>

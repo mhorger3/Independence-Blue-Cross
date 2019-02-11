@@ -1,0 +1,60 @@
+<div id="loading">
+  <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<h4> 
+    Welcome! To get started, click on a specific view controller on the navigation bar to make changes to a package or a mnemonic. 
+</h4>
+<br>
+<!-- Pending to QA -->
+<p> This table shows all the <b> local changes </b> you have made for this environment during your browser session. 
+    If you leave the website without going to the cart to save your changes, 
+    <b>your changes will be discarded!</b> 
+</p>
+<div class = "table_bar">
+   <b> &nbsp; Local Changes (Pending to DB) </b>
+</div>
+<!-- Pending to QA Table -->
+<table id="pending"> 
+    <thead>
+        <tr>
+            <th> Description </th>
+            <th> Time </th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="chg in QAchangesList"> <!-- for each change property in the local list -->
+            <td> {{chg.action}} &ndash; {{chg.sub}} &ndash; {{chg.name}} &ndash; {{chg.id}} &ndash; {{chg.category}} &ndash; {{chg.desc}} </td>
+            <td> {{chg.time}}   </td>
+            <td> <a href ng-model="editLink" ng-click="editChange(chg.id, chg.name, chg.url)"> edit </a> &nbsp; / &nbsp; <a href data-toggle="modal" data-target="#deleteChangesModal"> discard </a> </td> 
+        </tr>
+    </tbody>
+</table>
+ 
+<!-- publish QA buttons -->
+<div class = "pending_right_buttons">
+    <button type="button" class="btn btn-primary" id="cartButton" ng-click="goCart()" disabled> 
+        <b>Go to Cart</b> 
+    </button>
+ </div>
+ <br> <br> 
+ <!-- Delete Changes Modal-->
+ <div class="modal fade" id="deleteChangesModal" tabindex="-1" role="dialog" aria-labelledby="deleteChangesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Delete changes</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this change you have made?
+        <br> <br>
+        You cannot go back from this action.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> <b>Cancel </b></button>
+        <button type="button" class="btn btn-primary" ng-click="deleteChange(chg.id)"> <b>Yes, Delete </b></button>
+      </div>
+    </div>
+  </div>
+</div> 

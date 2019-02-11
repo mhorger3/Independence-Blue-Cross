@@ -1,0 +1,67 @@
+<div id="loading">
+    <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." />
+</div>
+<h1><b>Checkout Cart</b></h1><br>
+<h3> These are the local changes that need to be saved to the database. </h3>
+<!-- Local Changes Table -->
+<table id="cart"> 
+     <thead>
+         <tr>
+            <th> Description </th>
+            <th> Time </th>
+            <th> Actions </th>
+         </tr>
+     </thead>
+     <tbody>
+         <tr ng-repeat="chg in cart">
+            <td> {{chg.action}} &ndash; {{chg.sub}} &ndash; {{chg.name}} &ndash; {{chg.id}} &ndash; {{chg.category}} </td>
+            <td> {{chg.time}} </td>
+            <td> <a href ng-model="editLink" ng-click="editChange(chg.id, chg.url, chg.name)"> edit </a> &nbsp; / &nbsp; <a href data-toggle="modal" data-target="#deleteChangesModal"> discard </a> </td>
+         </tr>
+     </tbody>
+ </table>
+<!-- Publish Changes Button -->
+<span style="float: right; padding: 10px 10px 10px 10px;"> 
+    <button type="button" class="btn btn-primary" id="publishButton" data-toggle="modal" data-target="#publishModal" disabled>
+        <b>Push Changes</b>
+    </button> 
+</span>          
+<!-- Publish Changes Modal -->
+<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="exampleModalLabel">Push Changes</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to push these changes to the environment?
+        <br><br> 
+        Users on the tool will be notified of your submission!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="publishQA()"><b>Submit</b></button>
+      </div>
+    </div>
+  </div>
+</div>                
+<!-- Delete Changes Modal-->
+ <div class="modal fade" id="deleteChangesModal" tabindex="-1" role="dialog" aria-labelledby="deleteChangesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="dashboardLabel">Delete changes</h2>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this change you have made?
+        <br> <br>
+        You cannot go back from this action.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Cancel</b></button>
+        <button type="button" class="btn btn-primary" ng-click="deleteChange(chg.id)"><b>Yes, Delete</b></button>
+      </div>
+    </div>
+  </div>
+</div> 

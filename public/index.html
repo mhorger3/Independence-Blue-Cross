@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="configApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="images/independence-blue-cross-squarelogo.png"> 
+  <!-- JQuery Files -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script> 
+  <!-- Bootstrap Files -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- AngularJS Files -->
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <!-- Local Styles and Imported Fonts -->
+  <link rel="stylesheet" href="styles/homeStyle.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+  <!-- DataTables Files -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+  <!-- Local AngularJS Controller Files -->
+  <script src="scripts/script.js" type="text/javascript"></script>
+  <script src="scripts/service.js" type="text/javascript"></script>
+  <script src="scripts/packageViewController.js" type="text/javascript"></script>
+  <script src="scripts/mainController.js" type="text/javascript"></script>
+  <script src="scripts/mnemonicViewController.js" type="text/javascript"></script>
+  <script src="scripts/keywordViewController.js" type="text/javascript"></script>
+  <script src="scripts/packageInfoController.js" type="text/javascript"></script>
+  <script src="scripts/mnemonicInfoController.js" type="text/javascript"></script>
+  <script src="scripts/publishHistoryController.js" type="text/javascript"></script>
+  <script src="scripts/checkoutViewController.js" type="text/javascript"></script>
+  <title> IBX - Config </title>
+</head>
+<body>   
+    <!-- Site bar -->
+    <div class="site_bar">
+    <span style="text-align: center; display: block;vertical-align: middle;"> Portal Configurator </span>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-inverse" ng-controller="mainController">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span> 
+                </button>
+            <!-- Our Collaspe Bar will be hidden for large screens -->
+            <a class="navbar-brand hidden-lg"> <b> Action Bar </b> </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href='#/'> <b>Dashboard</b></a></li>
+                    <li><a href='#packageView'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Package View</b></a></li>
+                    <li><a href='#mnemonicView'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Mnemonic View</b></a></li>
+                    <li><a href='#keywordView'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Keyword View</b></a></li>
+                    <li><a href='#publishHistory'>&nbsp;&nbsp;&nbsp;&nbsp;<b>Publish History</b></a></li>  
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"> <b>Recently Viewed</b> 
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a id="QA" ng-click="history(0)">{{historyArray[0].url}} - {{historyArray[0].id}}</a>
+                            </li>
+                            <li>
+                                <a id="DEV" ng-click="history(1)">{{historyArray[1].url}} - {{historyArray[1].id}}</a>
+                            </li>
+                            <li>
+                                <a id="PRD" ng-click="history(2)">{{historyArray[2].url}} - {{historyArray[2].id}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li> 
+                        <a href='#checkout'> <b>Checkout Cart</b>&nbsp;
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Angular Templating -->
+    <div id="main">
+    <!-- this is where content will be injected -->
+        <div ng-view> 
+        </div>
+    </div>
+</body>
+</html>

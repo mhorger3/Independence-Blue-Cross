@@ -1,0 +1,196 @@
+<h1> <b> Compare </b> </h1>
+<div id="dynamic_add">
+     <span style="float: right; padding: 0px 10px 0px 0px;"> 
+    <button type="button" class="btn btn-primary" id="packageButton" data-toggle="modal" data-target="#addPackageModal">
+    <b>Add Package</b>
+    </button> 
+    <button type="button" class="btn btn-primary" id="mnemonicButton" data-toggle="modal" data-target="#addMnemonicModal">
+    <b>Add Mnemonic</b>
+    </button> 
+    <button type="button" class="btn btn-primary" id="clearButton" ng-click="clearCompare()">
+    <b>Clear Compare</b>
+    </button>
+    </span>
+</div>
+<br><br><hr>
+
+
+<div id="scroll_content">
+    <table id="compareTable">
+    <thead>
+         <tr>
+            <th> Object Fields</th>
+            <th ng-repeat="object in compareList"> {{object.name}} &nbsp;
+                
+                <button type="button" class="close" id="{{object.name}}Button" ng-click="removeList($index)">
+                <span class="glyphicon glyphicon-remove"></span>
+                </button> 
+
+                <button type="button" class="close" id="{{object.name}}Copy" data-toggle="modal" data-target="#copyModal" ng-model="modifymodalButton" ng-click="copy($index)"> 
+                <span class="glyphicon glyphicon-share"></span>
+                </button></th>
+         </tr>
+     </thead>
+     <tbody>
+         <tr ng-repeat="data in dataList">
+             <td> {{data.key}} </td>
+             <td ng-repeat="object in data.fields track by $index"> {{object}} </td>
+         </tr>
+     </tbody>
+    </table>
+</div>
+
+<!-- Add Mnemonics Modal -->
+<div class="modal fade" id="addMnemonicModal" tabindex="-1" role="dialog" aria-labelledby="addMnemonicLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="MnemonicInfoView">Add Mnemonics to Compare</h2>
+        <br>
+     
+      </div>
+      <div class="modal-body">
+          To add this mnemonic to compare, simply click on the checkbox and click confirm. <br><br> <br>
+          
+          
+          <input type="text" id="mnemonicsearchBox" placeholder="Search" ng-model="searchBox">
+          <button type="button" class="btn btn-primary" ng-click="searchMnemonics()">
+            Search
+          </button>
+          <br><br>
+        <div id="enabled_mnemonics">
+          <table id="enabled_mnemonics_modal">
+                <thead>
+                <tr>
+                    <th> Add Mnemonic </th>
+                    <th> Mnemonic Name </th>
+                    <th> Mnemonic Display </th>
+                    <th> Last Updated </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="mnemonic in fullMnemonics">
+                    <td><input type="checkbox" id="{{mnemonic.name}}-box" ng-model="checkbox" ng-change="getMnemonicCheckData(mnemonic.name)"/></td>
+                    <td> {{ mnemonic.name }} </td>
+                    <td> {{ mnemonic.packages }} </td>
+                    <td> {{ mnemonic.updated }} </td>
+                </tr>
+                </tbody>
+         </table>
+          
+      </div>
+      </div>
+               
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addMnemonic()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<!-- Add Package Modal -->
+<div class="modal fade" id="addPackageModal" tabindex="-1" role="dialog" aria-labelledby="addPackageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Add Package to Compare</h2>
+        <br>
+     
+      </div>
+      <div class="modal-body">
+          To add this package to compare, simply click on the checkbox and click confirm. <br>
+          You can search for a specific package using the search bar.<br> <br>
+          
+          
+          <input type="text" id="packagesearchBox" placeholder="Search" ng-model="searchBox">
+          <button type="button" class="btn btn-primary" ng-click="searchPackages()">
+            Search
+          </button>
+          <br><br>
+        <div id="enabled_packages">
+          <table id="enabled_packages_modal">
+                <thead>
+                <tr>
+                    <th> Add Package </th>
+                    <th> Package Name </th>
+                    <th> Package ID </th>
+                    <th> Last Updated </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="package in fullPackages">
+                    <td><input type="checkbox" id="{{package.id}}-box" ng-model="checkbox" ng-change="getPackageCheckData(package.id)"/></td>
+                    <td> {{ package.name }} </td>
+                    <td> {{ package.id }} </td>
+                    <td> {{ package.updated }} </td>
+                </tr>
+                </tbody>
+         </table>
+          
+      </div>
+      </div>
+               
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addPackage()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+<!-- Copy Modal -->
+<div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="copyLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">Close</button>
+        <h2 class="modal-title" id="PackageInfoView">Copy Over</h2>
+        <br>
+     
+      </div>
+      <div class="modal-body">
+          To copy over a selected mnemonic visibility settings, select which object you want to copy to be the same as your selected object by clicking on
+          the specific objects in the "All Content" list and click the down arrow button to move them to be copied.
+          If you decide you have made a mistake, select an object in the selected object list and click the up arrow button to undo the move.
+          <hr>
+          <input type="text" id="allsearchBox" placeholder="Search" ng-model="searchBox">
+          <button type="button" class="btn btn-primary" ng-click="searchAll()">
+              <b>Search</b>
+          </button>
+          <br><br>
+        <div id="allContainer">
+            <h4> All Content </h4>
+             <select multiple class="form-control" id="allCopy" ng-model="allContent" ng-change="updateCopy(allContent)">
+                <option ng-repeat="option in copyFullList" value="{{option.name}}">{{option.name}}</option>
+            </select>
+                <!-- need a ng repeat for full list of mnemonics here -->
+            
+        </div>   
+     
+          <div id="actionButtons">
+              <button type="button" id="copyDown"  ng-click="addCopy(allContent)"> 
+                  <span class="glyphicon glyphicon-triangle-bottom"> </span>
+              </button>  
+               <button type="button" id="removeUp" ng-click="removeCopy(selectedContent)"> 
+                  <span class="glyphicon glyphicon-triangle-top"> </span>
+              </button>  
+               <button type="button" id="viewVisibility" data-toggle="modal" data-target="#editVisibilityModal" ng-click="loadData()"> View Visibility
+              </button>
+              
+        <div id="copyContainer">
+                <h4> Selected Object -  {{currentObject}} </h4>
+                    <select multiple class="form-control" id="selectedCopy" ng-model="selectedContent" ng-change="updateSelectCopy(selectedCopy)">
+                        <option ng-repeat="option in copyObjectList" value="{{option.name}}">{{option.name}}</option>
+                    </select> 
+              
+          </div> 
+      </div>
+               
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="confirmCopy()"><b>Confirm</b></button>
+      </div>
+    </div>
+  </div>
+</div> 

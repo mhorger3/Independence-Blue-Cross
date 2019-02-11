@@ -1,0 +1,607 @@
+/* set the background color of the page and resize the page dynamically */
+html, body {
+    height: 100%;
+    background-color: #f7f7f7;
+}
+/* set the content border of the page */
+body {
+    padding: 10px;
+}
+/* set the modal width for dynamic resize */
+body .modal-dialog {
+    width: 90%;
+}
+/* set the image height and width, as well as padding, for dynamic resize */
+img {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 10px 10px 10px 10px;
+}
+/* define a custom class for a vertical line */
+.verticalLine {
+  border-left: 1px solid #ffffff;
+  text-align: center;
+}
+/* set the page header font size */
+h1{
+    font-size: 27px;
+}
+/* set the sub section header font size */
+h3 {
+    font-size: 20px;
+}
+/* ### Table Styles ### */
+/* datatables child row expand icon */
+td.details-control {
+    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_close.png') no-repeat center center;
+}
+/* set the ready to be published table style (dashboard.html)  */
+#published {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the content cell style */
+#published td {
+  text-align: left;
+  font-size: 14px;
+  padding: 5px 5px 5px 5px;
+}
+/* set the header style */
+#published th {
+    text-align: left;
+    background-color: #ffb03a;
+    color: #000000;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+}
+/* set the border for the rows of the table */
+#published tbody, tr {
+    border: 1px solid #000;
+}
+/* set the pending to QA table style (dashboard.html) */
+#pending {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the content cell style */
+#pending td {
+  text-align: left;
+  font-size: 14px;
+  padding: 5px 5px 5px 5px;
+}
+/* set the header style */
+#pending th {
+    text-align: left;
+    background-color: #ffb03a;
+    color: #000000;
+    font-size: 17px;
+    padding: 5px 5px 5px 5px;
+}
+/* set the border for the rows of the table */
+#pending tbody, tr {
+    border: 1px solid #000;
+}
+/* set the package list table style (packageView) */
+#packageList {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#packageList thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+     padding: 10px 10px 10px 10px;
+    border: 1px solid #000000;
+}
+/* set the content cell style */
+#packageList td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* set the mnemonic list table style (mnemonicView) */
+#mnemonicList {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#mnemonicList thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+     padding: 10px 10px 10px 10px;
+    border: 1px solid #000000;
+}
+/* set the content cell style */
+#mnemonicList td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* set the keyword list table style (keywordView.html) */
+#keywordList {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#keywordList thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid #000000;
+}
+/* set the content cell style */
+#keywordList td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* set the publish list table style (publishHistory.html) */
+#publishList {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#publishList thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+     padding: 10px 10px 10px 10px;
+    border: 1px solid #000000;
+}
+/* set the content cell style */
+#publishList td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* set the enabled menmonics table style (packageInfo.html) */
+#enabledMnemonics {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#enabledMnemonics thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+    border: 1px solid #000000;
+     padding: 10px 10px 10px 10px;
+}
+/* set the content cell style */
+#enabledMnemonics td {
+    border: 1px solid #000000;
+     padding: 10px 10px 10px 10px;
+
+}
+/* set the associative packages table style (mnemonicInfo.html) */
+#associativePackages {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+
+}
+/* set the header style */
+#associativePackages thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* set the content cell style */
+#associativePackages td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+#compareTable {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+
+}
+/* set the header style */
+#compareTable thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+    border: 1px solid #000000;
+     padding: 10px 10px 10px 10px;
+}
+/* set the content cell style */
+#compareTable td {
+    border: 1px solid #000000;
+     padding: 10px 10px 10px 10px;
+
+}
+/* set the cart table style (checkout.html) */
+#cart {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 15px 15px;
+}
+/* set the header style */
+#cart thead, th {
+    background-color: #ffb03a;
+    color: #000000;
+     padding: 10px 10px 10px 10px;
+    border: 1px solid #000000;
+}
+/* set the content cell style */
+#cart td {
+    border: 1px solid #000000;
+    padding: 10px 10px 10px 10px;
+}
+/* ### Button Styles ### */
+/* set the publish button group style (dashboard.html) */
+.publish_right_buttons {
+    border-radius: 8px;
+    float: right;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+}
+/* set the pending to qa button group style (dashboard.html) */
+.pending_right_buttons {
+    border-radius: 8px;
+    float: right;
+    position: relative;
+    padding: 10px 10px 10px 10px;
+}
+/* set the default button style */
+.btn {
+    background-color: #3cafd3;
+    color: #ffffff;
+    height: 30px;
+    line-height: 10px;
+    border-radius: 100px;
+}
+/* ### Search and Select Boxes Style ### */
+/* default search box style */
+#searchBox {
+    height: 30px;
+    width: 45%;
+    padding: 0px 0px 0px 10px;
+    border-radius: 8px;
+}
+/*  packageView.html search box style */
+#packagesearchBox {
+    height: 30px;
+    width: 45%;
+    padding: 0px 0px 0px 10px;
+    border-radius: 8px;
+}
+/* mnemonicView.html search box style */
+#mnemonicsearchBox {
+    height: 30px;
+    width: 45%;
+    padding: 0px 0px 0px 10px;
+    border-radius: 8px;
+}
+/* keywordView.html search box style */
+#keywordsearchBox {
+    height: 30px;
+    width: 45%;
+    padding: 0px 0px 0px 10px;
+    border-radius: 8px;
+}
+#publishsearchBox {
+    height: 30px;
+    width: 45%;
+    padding: 0px 0px 0px 10px;
+    border-radius: 8px;
+}
+/* default modal search box style */
+#modalsearchBox {
+    border-radius: 8px;
+    height: 30px;
+    width: 45%;
+    
+}
+/* Modal and Form Styles */
+/* default form group style for dynamic content */
+.form-group{
+width: 100%; 
+}
+/* package modal fields for dynamic content */
+#packageDescription {
+    height: 50px;
+    width: 100%;
+}
+#packageID {
+    width: 100%;
+}
+#packageName {
+    width: 100%;
+}
+#basePackage {
+    width: 100%;
+}
+#packageCategory {
+    width: 100%;
+}
+#packageNamefield {
+    width: 100%;
+}
+#packageIDfield {
+     width: 100%;
+}
+#packageDescriptionfield {
+    height: 50px;
+    width: 100%;
+}
+/* mnemonic modal fields for dynamic content */
+#mnemonicName {
+    width: 100%;
+}
+#mnemonicCategory {
+        width: 100%;
+}
+#mnemonicNavigable {
+        width: 100%;
+}
+#mnemonicCapability {
+        width: 100%;
+}
+#mnemonicMobile {
+        width: 100%;
+}
+#mnemonicDisplay {
+        width: 100%;
+}
+#mnemonicURL {
+        width: 100%;
+}
+#mnemonicNavigation {
+        width: 100%;
+}
+#mnemonicRelated {
+        width: 100%;
+        height: 50px;
+}
+/* keyword modal fields for dynamic content */
+#mnemonicNameField {
+     width: 100%;
+}
+#mnemonicCategoryField {
+     width: 100%;
+}
+#mnemonicNavigableField {
+     width: 100%;
+}
+#mnemonicCapabilityField {
+     width: 100%;
+}
+#mnemonicMobileField { 
+    width: 100%;
+}
+#mnemonicDisplayField {
+     width: 100%;
+}
+#mnemonicURLField {
+     width: 100%;
+}
+#mnemonicNavigationField {
+     width: 100%;
+}
+#mnemonicRelatedField {
+     width: 100%;
+     height: 50px;
+}
+/* Mnemonic Info Element Styles (mnemonicInfo.html) */
+/* style for select package visibility */
+#packageSelect {
+    width: 50%;
+}
+/* style for search content */
+.search {
+    display: inline-block;
+}
+/* style for info header */
+.infoHeader {
+    display: inline-block;
+    position: fixed;
+}
+/* fixed size for visibility section */
+.visibility {
+   height: 550px;
+}
+/* default list style override */
+ul {
+     list-style-type: none;
+}
+/* style for funding settings */
+#funding_settings {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+/* style for product settings */
+#product_settings {
+      -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3; 
+}
+/* style for LOBS_settings */
+#LOBS_settings {
+       -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3
+}
+/* style for misc_settings */
+#misc_settings {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+}
+/* ### Navigation Bars ### */
+/* our navigation (action) bar */
+.navbar-inverse {
+     background-color: #26004d;
+     border-color: #080808;
+     color: #ffffff;
+     font-size: 16px;
+}
+.navbar-inverse .navbar-header > a {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-header > a:hover,
+.navbar-inverse .navbar-header > a:focus {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #3085db;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #3085db;
+    background-color: #26004d;
+}
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #3085db;
+    background-color: #26004d;
+}
+/* Site bar where our tool name will go */
+.site_bar {
+    width: 100%;
+    height: 45px;
+    color: #000000;
+    text-align: left;
+    line-height: 45px;
+    font-size: 26px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+/* table (destination) bars for dashboard.html */
+.table_bar {
+    width:100%;
+    height:25px;
+    border:1px solid #000; 
+    background-color: #008CCC;
+    color: #ffffff;
+    font-size: 16px;
+}
+/* ### Override Label Style for Fluid Checkboxes */
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 40px;
+	height: 20px;
+	background: grey;
+	display: inline-block;
+	border-radius: 100px;
+	position: relative;
+        top: 10px;
+}
+label:after {
+        content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 10px;
+	height: 10px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+input:checked + label {
+	background: #bada55;
+}
+input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+label:active:after {
+	width: 10px;
+}
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+/* Search Items */
+#searchPackages {
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+}
+#searchMnemonics {
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+}
+#searchKeywords {
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+}
+/* ### Document Styles ### */
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 240px;
+  z-index: 100;
+}
+.dataTables_filter { 
+    display: none; 
+}
